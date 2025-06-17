@@ -72,13 +72,15 @@ def causal_discovery(iid, pid, bchm):
         df = df.iloc[:, 3:]
         dfs += [df]
     df = merge_if_same_headers(dfs)
+    sample_size = int(len(df) * 0.1)
+    df = df.sample(n=sample_size, random_state=42)
     tetrad = s.tetradrunner()
     tetrad.getAlgorithmParameters(
         algoId="gfci", testId="fisher-z-test", scoreId="sem-bic")
     tetrad.run(algoId='gfci', dfs=df, testId='fisher-z-test', scoreId='sem-bic',
-               maxDegree=-1, maxPathLength=-1,
-               completeRuleSetUsed=False, faithfulnessAssumed=True, verbose=True,
-               numberResampling=5, resamplingEnsemble=1, addOriginalDataset=True)
+               maxDegree=-1, maxPathLength=-1, completeRuleSetUsed=False,
+               faithfulnessAssumed=True, verbose=False, numberResampling=5,
+               resamplingEnsemble=1, addOriginalDataset=True)
     graph = tetrad.getTetradGraph()
     nodes = tetrad.getNodes()
     edges = tetrad.getEdges()
