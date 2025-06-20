@@ -72,7 +72,8 @@ def causal_discovery(iid, pid, bchm):
         df = df.iloc[:, 3:]
         dfs += [df]
     df = merge_if_same_headers(dfs)
-    sample_size = int(len(df) * 0.1)
+    print(len(df))
+    sample_size = min(len(df), 10000)
     df = df.sample(n=sample_size, random_state=42)
     tetrad = s.tetradrunner()
     tetrad.getAlgorithmParameters(
