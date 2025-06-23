@@ -6,7 +6,7 @@ pids=(1 3 4 5 16 23)
 bchm_id_start=0
 bchm_id_end=13
 
-MAX_CONCURRENT=10
+MAX_CONCURRENT=6
 
 count=0
 
