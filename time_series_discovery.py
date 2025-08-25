@@ -1,4 +1,5 @@
 import os
+import sys
 import pandas as pd
 import numpy as np
 import matplotlib
@@ -71,13 +72,20 @@ def discovery(dataframe, var_names):
     results['graph'] = graph
     return graph
 
-
-for iid in instance_ids:
-    for pid in problem_ids:
-        for epsilon in epsilons:
-            for bchm in bchms:
-                dfs, var_names = build_atom_data(iid, pid, bchm, epsilon)
-                for i in range(len(dfs)):
-                    graph = discovery(dfs[i], var_names)
-                    np.save(
-                        f"data/graphs/{iid}_{pid}_{epsilon}_{bchm}_{i}.npy", graph)
+iid = int(sys.argv[1])
+pid = int(sys.argv[2])
+epsilon = epsilons[int(sys.argv[3])]
+bchm = bchms[int(sys.argv[4])]
+print(f"Processing {iid} {pid} {epsilon} {bchm}")
+# for iid in instance_ids:
+#     for pid in problem_ids:
+#         for epsilon in epsilons:
+#             for bchm in bchms:
+dfs, var_names = build_atom_data(iid, pid, bchm, epsilon)
+for i in range(len(dfs)):
+    flag_path = f"data/graphs/{iid}_{pid}_{epsilon}_{bchm}_{i}.npy"
+    if os.path.exists(flag_path):
+        continue
+    graph = discovery(dfs[i], var_names)
+    np.save(
+        f"data/graphs/{iid}_{pid}_{epsilon}_{bchm}_{i}.npy", graph)

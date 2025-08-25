@@ -89,8 +89,11 @@ def causal_discovery(iid, pid, bchm):
     dot_str = pc.tetradGraphToDot(graph)
     graphs = pydot.graph_from_dot_data(dot_str)
     svg_str = graphs[0].create_svg()
-    cairosvg.svg2png(bytestring=svg_str,
-                     write_to=f"results/{iid}_{pid}_{bchms.index(bchm)}.png")
+    
+    print(graph)
+    print(dot_str)
+    # cairosvg.svg2png(bytestring=svg_str,
+    #                  write_to=f"results/{iid}_{pid}_{bchms.index(bchm)}.png")
 
 
 if __name__ == "__main__":

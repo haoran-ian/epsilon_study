@@ -1,4 +1,5 @@
 import os
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
@@ -59,11 +60,11 @@ def plot_GTO(graph, iid, pid, epsilon, bchm):
                 ax.add_patch(rect)
                 width_accum += width
     
-    ax.set_xticks(np.arange(0.5, 21.5, 1))  # 将标签放在方格中心
+    ax.set_xticks(np.arange(0, 21, 1))  # 将标签放在方格中心
     ax.set_xticklabels(labels, rotation=45, ha='right', fontsize=9)
 
     # 设置Y轴刻度位置和标签
-    ax.set_yticks(np.arange(0.5, 21.5, 1))
+    ax.set_yticks(np.arange(0, 21, 1))
     ax.set_yticklabels(labels, fontsize=9)
     from matplotlib.patches import Patch
     legend_elements = [
@@ -75,15 +76,22 @@ def plot_GTO(graph, iid, pid, epsilon, bchm):
     plt.title(f"iid: {iid}, fid: {pid}, epsilon: {epsilon}, bchm: {bchm}")
     plt.tight_layout()
     plt.savefig(f"results/graph_GTO/{iid}_{pid}_{epsilon}_{bchm}.png")
-    plt.cla()
 
 
-for iid in instance_ids:
-    for pid in problem_ids:
-        for epsilon in epsilons:
-            for bchm in bchms:
-                graph_GTO = build_GTO(iid, pid, epsilon, bchm)
-                graph_GTO = np.array(graph_GTO)
-                if np.sum(graph_GTO) == 0:
-                    continue
-                plot_GTO(graph_GTO, iid, pid, epsilon, bchm)
+iid = int(sys.argv[1])
+pid = int(sys.argv[2])
+epsilon = epsilons[int(sys.argv[3])]
+bchm = bchms[int(sys.argv[4])]
+f_path = f"data/graphs/{iid}_{pid}_{epsilon}_{bchm}_1.npy"
+if not os.path.exists(f_path):
+    exit
+print(f"Processing {iid} {pid} {epsilon} {bchm}")
+# for iid in instance_ids:
+#     for pid in problem_ids:
+#         for epsilon in epsilons:
+#             for bchm in bchms:
+graph_GTO = build_GTO(iid, pid, epsilon, bchm)
+graph_GTO = np.array(graph_GTO)
+if np.sum(graph_GTO) == 0:
+    exit
+plot_GTO(graph_GTO, iid, pid, epsilon, bchm)

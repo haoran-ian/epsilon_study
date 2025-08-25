@@ -1,0 +1,18 @@
+digraph g {
+ "density" -> "pop_size" [dir=both, arrowtail=odot, arrowhead=normal, label="density - pop_size\n[o->]:0.8333333333333334\n[no edge]:0.16666666666666666", fontname=courier]; 
+ "avgCR" -> "pop_size" [dir=both, arrowtail=normal, arrowhead=none, label="avgCR - pop_size\n[<--]:0.8333333333333334\n[no edge]:0.16666666666666666", fontname=courier]; 
+ "meanImprovements" -> "meanImprovementsMut" [dir=both, arrowtail=normal, arrowhead=odot, label="meanImprovements - meanImprovementsMut\n[<--]:0.16666666666666666\n[o->]:0.16666666666666666\n[<-o]:0.3333333333333333\n[no edge]:0.3333333333333333", fontname=courier]; 
+ "genMutatedComponent" -> "pop_size" [dir=both, arrowtail=normal, arrowhead=normal, label="genMutatedComponent - pop_size\n[<->]:0.8333333333333334\n[<--]:0.16666666666666666", fontname=courier]; 
+ "extension" -> "meanImprovements" [dir=both, arrowtail=odot, arrowhead=odot, label="extension - meanImprovements\n[o-o]:0.3333333333333333\n[o->]:0.3333333333333333\n[<-o]:0.16666666666666666\n[no edge]:0.16666666666666666", fontname=courier]; 
+ "extension" -> "pop_size" [dir=both, arrowtail=odot, arrowhead=normal, label="extension - pop_size\n[<->]:0.16666666666666666\n[o->]:0.8333333333333334", fontname=courier]; 
+ "avgCR" -> "genMutatedComponent" [dir=both, arrowtail=normal, arrowhead=normal, label="avgCR - genMutatedComponent\n[o->]:0.16666666666666666\n[<->]:0.8333333333333334", fontname=courier]; 
+ "avgF" -> "genInfeasibleElement" [dir=both, arrowtail=odot, arrowhead=odot, label="avgF - genInfeasibleElement\n[o->]:0.16666666666666666\n[o-o]:0.8333333333333334", fontname=courier]; 
+ "meanImprovements" -> "varPop" [arrowtail=none, arrowhead=normal, label="meanImprovements - varPop\n[-->]:0.5\n[o->]:0.16666666666666666\n[o-o]:0.16666666666666666\n[no edge]:0.16666666666666666", fontname=courier]; 
+ "genMutatedComponent" -> "it" [dir=both, arrowtail=normal, arrowhead=odot, label="genMutatedComponent - it\n[<->]:0.16666666666666666\n[<-o]:0.8333333333333334", fontname=courier]; 
+ "eccentricity" -> "prob_infeas" [dir=both, arrowtail=odot, arrowhead=odot, label="eccentricity - prob_infeas\n[<-o]:0.16666666666666666\n[o-o]:0.8333333333333334", fontname=courier]; 
+ "eps" -> "stdCR" [dir=both, arrowtail=odot, arrowhead=odot, label="eps - stdCR\n[o-o]:0.8333333333333334\n[<-o]:0.16666666666666666", fontname=courier]; 
+ "it" -> "pop_size" [dir=both, arrowtail=odot, arrowhead=normal, label="it - pop_size\n[o->]:0.8333333333333334\n[<->]:0.16666666666666666", fontname=courier]; 
+ "best" -> "error" [dir=both, arrowtail=odot, arrowhead=odot, label="best - error\n[o-o]:0.3333333333333333\n[<-o]:0.3333333333333333\n[-->]:0.16666666666666666\n[no edge]:0.16666666666666666", fontname=courier]; 
+ "genInfeasibleElement" -> "prob_infeas" [dir=both, arrowtail=odot, arrowhead=odot, label="genInfeasibleElement - prob_infeas\n[<-o]:0.16666666666666666\n[o-o]:0.8333333333333334", fontname=courier]; 
+ "extension" -> "meanImprovementsMut" [dir=both, arrowtail=odot, arrowhead=normal, label="extension - meanImprovementsMut\n[o->]:0.5\n[o-o]:0.3333333333333333\n[no edge]:0.16666666666666666", fontname=courier]; 
+}
