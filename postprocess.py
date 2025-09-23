@@ -3,6 +3,7 @@ import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
+from tigramite import plotting as tp
 from matplotlib.gridspec import GridSpec
 from matplotlib.patches import Rectangle
 
@@ -59,7 +60,7 @@ def plot_GTO(graph, iid, pid, epsilon, bchm):
                                  edgecolor="none")
                 ax.add_patch(rect)
                 width_accum += width
-    
+
     ax.set_xticks(np.arange(0, 21, 1))  # 将标签放在方格中心
     ax.set_xticklabels(labels, rotation=45, ha='right', fontsize=9)
 
@@ -78,6 +79,21 @@ def plot_GTO(graph, iid, pid, epsilon, bchm):
     plt.savefig(f"results/graph_GTO/{iid}_{pid}_{epsilon}_{bchm}.png")
 
 
+def plot_graph(iid, pid, epsilon, bchm):
+    val_matrix = np.load(f"data/val_matrix/{iid}_{pid}_{epsilon}_{bchm}_0.npy")
+    graph = np.load(f"data/graphs/{iid}_{pid}_{epsilon}_{bchm}_0.npy")
+    tp.plot_graph(
+        val_matrix=val_matrix,
+        graph=graph,
+        var_names=labels,
+        link_colorbar_label='cross-MCI',
+        node_colorbar_label='auto-MCI',
+        show_autodependency_lags=False,
+        figsize=(10, 10)
+    )
+    plt.savefig(f"results/graph_time/{iid}_{pid}_{epsilon}_{bchm}.png")
+
+
 iid = int(sys.argv[1])
 pid = int(sys.argv[2])
 epsilon = epsilons[int(sys.argv[3])]
@@ -90,8 +106,9 @@ print(f"Processing {iid} {pid} {epsilon} {bchm}")
 #     for pid in problem_ids:
 #         for epsilon in epsilons:
 #             for bchm in bchms:
-graph_GTO = build_GTO(iid, pid, epsilon, bchm)
-graph_GTO = np.array(graph_GTO)
-if np.sum(graph_GTO) == 0:
-    exit
-plot_GTO(graph_GTO, iid, pid, epsilon, bchm)
+# graph_GTO = build_GTO(iid, pid, epsilon, bchm)
+# graph_GTO = np.array(graph_GTO)
+# if np.sum(graph_GTO) == 0:
+#     exit
+# plot_GTO(graph_GTO, iid, pid, epsilon, bchm)
+plot_graph(iid, pid, epsilon, bchm)

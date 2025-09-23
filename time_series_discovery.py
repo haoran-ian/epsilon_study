@@ -44,7 +44,7 @@ def build_atom_data(iid, pid, bchm, eps):
             dataframe = pp.DataFrame(df.values,
                                      datatime={0: np.arange(len(df))},
                                      var_names=df.columns)
-            print(df.columns)
+            # print(df.columns)
             dfs += [dataframe]
         else:
             print(f"Missing file: {f_path}")
@@ -57,8 +57,8 @@ def discovery(dataframe, var_names):
         dataframe=dataframe,
         cond_ind_test=parcorr,
         verbosity=1)
-    correlations = pcmci.get_lagged_dependencies(
-        tau_max=20, val_only=True)['val_matrix']
+    # correlations = pcmci.get_lagged_dependencies(
+    #     tau_max=20, val_only=True)['val_matrix']
     pcmci.verbosity = 1
     results = pcmci.run_pcmci(tau_max=8, pc_alpha=None, alpha_level=0.01)
     q_matrix = pcmci.get_corrected_pvalues(
@@ -69,8 +69,9 @@ def discovery(dataframe, var_names):
         alpha_level=0.01)
     graph = pcmci.get_graph_from_pmatrix(p_matrix=q_matrix, alpha_level=0.01,
                                          tau_min=0, tau_max=8, link_assumptions=None)
+    val_matrix = results['val_matrix']
     results['graph'] = graph
-    return graph
+    return graph, val_matrix
 
 iid = int(sys.argv[1])
 pid = int(sys.argv[2])
@@ -83,9 +84,12 @@ print(f"Processing {iid} {pid} {epsilon} {bchm}")
 #             for bchm in bchms:
 dfs, var_names = build_atom_data(iid, pid, bchm, epsilon)
 for i in range(len(dfs)):
-    flag_path = f"data/graphs/{iid}_{pid}_{epsilon}_{bchm}_{i}.npy"
-    if os.path.exists(flag_path):
-        continue
-    graph = discovery(dfs[i], var_names)
+    # flag_path = f"data/graphs/{iid}_{pid}_{epsilon}_{bchm}_{i}.npy"
+    # if os.path.exists(flag_path):
+    #     continue
+    graph, val_matrix = discovery(dfs[i], var_names)
+    print(graph)
     np.save(
         f"data/graphs/{iid}_{pid}_{epsilon}_{bchm}_{i}.npy", graph)
+    np.save(
+        f"data/val_matrix/{iid}_{pid}_{epsilon}_{bchm}_{i}.npy", val_matrix)
