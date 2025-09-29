@@ -2,13 +2,14 @@ import re
 import os
 import sys
 import pydot
-import cairosvg
+# import cairosvg
 import numpy as np
 import pandas as pd
+from pathlib import Path
 from pycausal import prior as p
 from pycausal import search as s
 from pycausal.pycausal import pycausal as pc
-from IPython.display import SVG
+# from IPython.display import SVG
 
 instance_ids = [2, 3, 4, 5]
 problem_ids = [1, 3, 4, 5, 16, 23]
@@ -50,7 +51,7 @@ def build_atom_data(iid, pid, bchm, eps):
             new_columns = {
                 "iid": [iid] * len(df),
                 "pid": [pid] * len(df),
-                "bchm": [bchms.index(bchm)] * len(df),
+                "bchm": [float(bchms.index(bchm))] * len(df),
                 "eps": [eps if eps != "" else -1] * len(df)
             }
             new_df = pd.DataFrame(new_columns)
@@ -64,16 +65,17 @@ def build_atom_data(iid, pid, bchm, eps):
     print(df.info())
 
 
-def causal_discovery(iid, pid, bchm):
+def causal_discovery(iid, pid):
     dfs = []
-    for eps in epsilons:
-        f_path = f"data/causal_discovery/{iid}_{pid}_{bchms.index(bchm)}_{eps}.csv"
-        df = pd.read_csv(f_path)
-        df = df.iloc[:, 3:]
-        dfs += [df]
+    for bchm in bchms:
+        for eps in epsilons:
+            f_path = f"data/causal_discovery/{iid}_{pid}_{bchms.index(bchm)}_{eps}.csv"
+            df = pd.read_csv(f_path)
+            df = df.iloc[:, 2:]
+            dfs += [df]
     df = merge_if_same_headers(dfs)
     print(len(df))
-    sample_size = min(len(df), 10000)
+    sample_size = min(len(df), 1000)
     df = df.sample(n=sample_size, random_state=42)
     tetrad = s.tetradrunner()
     tetrad.getAlgorithmParameters(
@@ -90,19 +92,26 @@ def causal_discovery(iid, pid, bchm):
     graphs = pydot.graph_from_dot_data(dot_str)
     svg_str = graphs[0].create_svg()
     
-    print(graph)
-    print(dot_str)
+    # print(graph)
+    # print(dot_str)
+    print(svg_str)
+    # file_path = Path(f"results/causal_bchm/string/{iid}_{pid}.txt")
+    # if not file_path.exists():
+    #     file_path.touch()
+    f = open(f"results/causal_bchm/string/{iid}_{pid}.bin", "wb")
+    f.write(svg_str)
     # cairosvg.svg2png(bytestring=svg_str,
-    #                  write_to=f"results/{iid}_{pid}_{bchms.index(bchm)}.png")
+    #                  write_to=f"results/causal_bchm/{iid}_{pid}_{bchms.index(bchm)}.png")
 
 
 if __name__ == "__main__":
     iid = int(sys.argv[1])
     pid = int(sys.argv[2])
-    bchm_id = int(sys.argv[3])
+    # bchm_id = int(sys.argv[3])
     pc = pc()
     pc.start_vm()
-    for eps in epsilons:
-        build_atom_data(iid, pid, bchms[bchm_id], eps)
-    causal_discovery(iid, pid, bchms[bchm_id])
+    for bchm_id in range(14):
+        for eps in epsilons:
+            build_atom_data(iid, pid, bchms[bchm_id], eps)
+    causal_discovery(iid, pid)
     pc.stop_vm()
