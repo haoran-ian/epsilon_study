@@ -19,8 +19,8 @@ for instance_id in "${instance_ids[@]}"; do
                     wait -n
                     count=$((count-1))
                 fi
-                python postprocess.py $instance_id $problem_id $epsilon $bchm_id &
-                # python time_series_discovery.py $instance_id $problem_id $epsilon $bchm_id &
+                # python postprocess.py $instance_id $problem_id $epsilon $bchm_id &
+                python time_series_discovery.py $instance_id $problem_id $epsilon $bchm_id &
                 count=$((count+1))
             done
         done

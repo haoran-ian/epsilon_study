@@ -51,27 +51,31 @@ def build_atom_data(iid, pid, bchm, eps):
     return dfs, df.columns
 
 
-def discovery(dataframe, var_names):
+def discovery(dataframe):
     parcorr = ParCorr(significance='analytic')
-    pcmci = PCMCI(
-        dataframe=dataframe,
-        cond_ind_test=parcorr,
-        verbosity=1)
-    # correlations = pcmci.get_lagged_dependencies(
-    #     tau_max=20, val_only=True)['val_matrix']
-    pcmci.verbosity = 1
-    results = pcmci.run_pcmci(tau_max=8, pc_alpha=None, alpha_level=0.01)
-    q_matrix = pcmci.get_corrected_pvalues(
-        p_matrix=results['p_matrix'], tau_max=8, fdr_method='fdr_bh')
-    pcmci.print_significant_links(
-        p_matrix=q_matrix,
-        val_matrix=results['val_matrix'],
-        alpha_level=0.01)
-    graph = pcmci.get_graph_from_pmatrix(p_matrix=q_matrix, alpha_level=0.01,
-                                         tau_min=0, tau_max=8, link_assumptions=None)
+    lpcmci = LPCMCI(dataframe=dataframe,
+                    cond_ind_test=parcorr,
+                    verbosity=1)
+    # correlations = pcmci.run_bivci(tau_max=20, val_only=True)['val_matrix']
+    tau_max = 5
+    pc_alpha = 0.01
+    # Run LPCMCI
+    results = lpcmci.run_lpcmci(tau_max=tau_max,
+                                pc_alpha=pc_alpha)
+    # pcmci.verbosity = 1
+    # results = pcmci.run_pcmci(tau_max=8, pc_alpha=None, alpha_level=0.01)
+    # q_matrix = pcmci.get_corrected_pvalues(
+    #     p_matrix=results['p_matrix'], tau_max=8, fdr_method='fdr_bh')
+    # pcmci.print_significant_links(
+    #     p_matrix=q_matrix,
+    #     val_matrix=results['val_matrix'],
+    #     alpha_level=0.01)
+    # graph = pcmci.get_graph_from_pmatrix(p_matrix=q_matrix, alpha_level=0.01,
+    #                                      tau_min=0, tau_max=8, link_assumptions=None)
     val_matrix = results['val_matrix']
-    results['graph'] = graph
+    graph = results['graph']
     return graph, val_matrix
+
 
 iid = int(sys.argv[1])
 pid = int(sys.argv[2])
@@ -87,9 +91,9 @@ for i in range(len(dfs)):
     # flag_path = f"data/graphs/{iid}_{pid}_{epsilon}_{bchm}_{i}.npy"
     # if os.path.exists(flag_path):
     #     continue
-    graph, val_matrix = discovery(dfs[i], var_names)
-    print(graph)
+    graph, val_matrix = discovery(dfs[i])
+    # print(graph)
     np.save(
-        f"data/graphs/{iid}_{pid}_{epsilon}_{bchm}_{i}.npy", graph)
+        f"data/LPCMCI/graphs/{iid}_{pid}_{epsilon}_{bchm}_{i}.npy", graph)
     np.save(
-        f"data/val_matrix/{iid}_{pid}_{epsilon}_{bchm}_{i}.npy", val_matrix)
+        f"data/LPCMCI/val_matrix/{iid}_{pid}_{epsilon}_{bchm}_{i}.npy", val_matrix)
