@@ -2,27 +2,27 @@ import os
 import sys
 import pandas as pd
 import numpy as np
-import matplotlib
-from matplotlib import pyplot as plt
+# import matplotlib
+# from matplotlib import pyplot as plt
 # plt.style.use('ggplot')
-import sklearn
+# import sklearn
 
-import tigramite
+# import tigramite
 from tigramite import data_processing as pp
-from tigramite.toymodels import structural_causal_processes as toys
+# from tigramite.toymodels import structural_causal_processes as toys
 
-from tigramite import plotting as tp
-from tigramite.pcmci import PCMCI
+# from tigramite import plotting as tp
+# from tigramite.pcmci import PCMCI
 from tigramite.lpcmci import LPCMCI
 
 from tigramite.independence_tests.parcorr import ParCorr
-from tigramite.independence_tests.robust_parcorr import RobustParCorr
-from tigramite.independence_tests.parcorr_wls import ParCorrWLS
-from tigramite.independence_tests.gpdc import GPDC
-from tigramite.independence_tests.cmiknn import CMIknn
-from tigramite.independence_tests.cmisymb import CMIsymb
-from tigramite.independence_tests.gsquared import Gsquared
-from tigramite.independence_tests.regressionCI import RegressionCI
+# from tigramite.independence_tests.robust_parcorr import RobustParCorr
+# from tigramite.independence_tests.parcorr_wls import ParCorrWLS
+# from tigramite.independence_tests.gpdc import GPDC
+# from tigramite.independence_tests.cmiknn import CMIknn
+# from tigramite.independence_tests.cmisymb import CMIsymb
+# from tigramite.independence_tests.gsquared import Gsquared
+# from tigramite.independence_tests.regressionCI import RegressionCI
 
 instance_ids = [2, 3, 4, 5]
 problem_ids = [1, 3, 4, 5, 16, 23]
@@ -44,7 +44,6 @@ def build_atom_data(iid, pid, bchm, eps):
             dataframe = pp.DataFrame(df.values,
                                      datatime={0: np.arange(len(df))},
                                      var_names=df.columns)
-            # print(df.columns)
             dfs += [dataframe]
         else:
             print(f"Missing file: {f_path}")
@@ -56,22 +55,11 @@ def discovery(dataframe):
     lpcmci = LPCMCI(dataframe=dataframe,
                     cond_ind_test=parcorr,
                     verbosity=1)
-    # correlations = pcmci.run_bivci(tau_max=20, val_only=True)['val_matrix']
-    tau_max = 5
+    tau_max = 3
     pc_alpha = 0.01
     # Run LPCMCI
     results = lpcmci.run_lpcmci(tau_max=tau_max,
                                 pc_alpha=pc_alpha)
-    # pcmci.verbosity = 1
-    # results = pcmci.run_pcmci(tau_max=8, pc_alpha=None, alpha_level=0.01)
-    # q_matrix = pcmci.get_corrected_pvalues(
-    #     p_matrix=results['p_matrix'], tau_max=8, fdr_method='fdr_bh')
-    # pcmci.print_significant_links(
-    #     p_matrix=q_matrix,
-    #     val_matrix=results['val_matrix'],
-    #     alpha_level=0.01)
-    # graph = pcmci.get_graph_from_pmatrix(p_matrix=q_matrix, alpha_level=0.01,
-    #                                      tau_min=0, tau_max=8, link_assumptions=None)
     val_matrix = results['val_matrix']
     graph = results['graph']
     return graph, val_matrix
@@ -82,16 +70,13 @@ pid = int(sys.argv[2])
 epsilon = epsilons[int(sys.argv[3])]
 bchm = bchms[int(sys.argv[4])]
 print(f"Processing {iid} {pid} {epsilon} {bchm}")
-# for iid in instance_ids:
-#     for pid in problem_ids:
-#         for epsilon in epsilons:
-#             for bchm in bchms:
 dfs, var_names = build_atom_data(iid, pid, bchm, epsilon)
 for i in range(len(dfs)):
     # flag_path = f"data/graphs/{iid}_{pid}_{epsilon}_{bchm}_{i}.npy"
     # if os.path.exists(flag_path):
     #     continue
     graph, val_matrix = discovery(dfs[i])
+    # discovery(dfs[i])
     # print(graph)
     np.save(
         f"data/LPCMCI/graphs/{iid}_{pid}_{epsilon}_{bchm}_{i}.npy", graph)
