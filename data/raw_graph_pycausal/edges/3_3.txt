@@ -1,0 +1,17 @@
+extension o-o shape [extension o-o shape]:0.5000;[extension <-- shape]:0.1667;[no edge]:0.3333;
+kl_unif o-> eccentricity [eccentricity <-o kl_unif]:1.0000;
+meanImprovements o-o meanImprovementsMut [meanImprovements o-o meanImprovementsMut]:0.8333;[no edge]:0.1667;
+extension o-> error [error <-o extension]:0.6667;[error <-- extension]:0.1667;[no edge]:0.1667;
+extension o-> best [best <-- extension]:0.3333;[best <-o extension]:0.5000;[no edge]:0.1667;
+meanImprovementsMut o-> best [best <-o meanImprovementsMut]:0.6667;[best <-> meanImprovementsMut]:0.1667;[no edge]:0.1667;
+avgF o-o kl_unif [avgF o-o kl_unif]:1.0000;
+avgF o-> avgCR [avgCR <-o avgF]:0.6667;[avgCR o-o avgF]:0.3333;
+shape o-> eccentricity [eccentricity <-o shape]:0.8333;[eccentricity <-> shape]:0.1667;
+meanImprovements o-o varPop [meanImprovements o-o varPop]:1.0000;
+stdCR o-o stdF [stdCR o-o stdF]:0.8333;[no edge]:0.1667;
+prob_infeas o-> eccentricity [eccentricity <-o prob_infeas]:1.0000;
+bchm o-o dist_to_opt [bchm o-o dist_to_opt]:1.0000;
+it o-o pop_size [it o-o pop_size]:1.0000;
+error --> best [best o-o error]:0.1667;[best <-- error]:0.8333;
+genInfeasibleElement o-o prob_infeas [genInfeasibleElement o-o prob_infeas]:1.0000;
+meanImprovements o-> error [error <-o meanImprovements]:0.8333;[no edge]:0.1667;

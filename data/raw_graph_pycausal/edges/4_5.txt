@@ -1,0 +1,16 @@
+stdF o-> meanImprovements [meanImprovements <-> stdF]:0.1667;[meanImprovements <-o stdF]:0.3333;[meanImprovements o-o stdF]:0.3333;[no edge]:0.1667;
+eccentricity o-o kl_unif [eccentricity o-o kl_unif]:1.0000;
+meanImprovements --> meanImprovementsMut [meanImprovements o-> meanImprovementsMut]:0.1667;[meanImprovements --> meanImprovementsMut]:0.3333;[meanImprovements o-o meanImprovementsMut]:0.3333;[no edge]:0.1667;
+shape o-o varPop [shape --> varPop]:0.3333;[shape o-> varPop]:0.1667;[shape o-o varPop]:0.5000;
+dist_to_opt o-> ratio [dist_to_opt o-> ratio]:1.0000;
+extension o-o meanImprovements [extension o-o meanImprovements]:0.3333;[extension o-> meanImprovements]:0.3333;[no edge]:0.3333;
+best o-> ratio [best o-> ratio]:0.6667;[no edge]:0.3333;
+avgCR o-o genMutatedComponent [avgCR o-o genMutatedComponent]:1.0000;
+shape o-> meanImprovements [meanImprovements --> shape]:0.1667;[meanImprovements <-o shape]:0.3333;[meanImprovements o-o shape]:0.3333;[meanImprovements o-> shape]:0.1667;
+genInfeasibleElement o-> pop_size [genInfeasibleElement o-> pop_size]:0.3333;[genInfeasibleElement o-o pop_size]:0.3333;[genInfeasibleElement <-- pop_size]:0.3333;
+it --> stdCR [it o-> stdCR]:0.1667;[it <-o stdCR]:0.1667;[it --> stdCR]:0.6667;
+stdF o-> it [it <-o stdF]:0.5000;[it <-> stdF]:0.3333;[no edge]:0.1667;
+it <-> pop_size [it <-o pop_size]:0.1667;[it <-> pop_size]:0.6667;[it o-o pop_size]:0.1667;
+avgF o-o prob_infeas [avgF o-o prob_infeas]:0.6667;[avgF o-> prob_infeas]:0.3333;
+best o-o error [best o-o error]:0.8333;[no edge]:0.1667;
+eps o-> pop_size [eps o-o pop_size]:0.3333;[eps o-> pop_size]:0.6667;

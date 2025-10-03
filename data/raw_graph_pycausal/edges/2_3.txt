@@ -1,0 +1,12 @@
+extension --> shape [extension --> shape]:0.3333;[extension o-o shape]:0.3333;[extension <-- shape]:0.1667;[extension <-o shape]:0.1667;
+kl_unif --> eccentricity [eccentricity <-- kl_unif]:0.6667;[eccentricity <-o kl_unif]:0.3333;
+meanImprovements o-> meanImprovementsMut [meanImprovements o-> meanImprovementsMut]:0.3333;[meanImprovements o-o meanImprovementsMut]:0.3333;[no edge]:0.3333;
+best <-> meanImprovementsMut [best --> meanImprovementsMut]:0.1667;[best o-> meanImprovementsMut]:0.1667;[best <-> meanImprovementsMut]:0.3333;[no edge]:0.3333;
+avgF o-> kl_unif [avgF o-o kl_unif]:0.3333;[avgF o-> kl_unif]:0.5000;[avgF --> kl_unif]:0.1667;
+avgCR o-o avgF [avgCR <-- avgF]:0.1667;[avgCR o-o avgF]:0.6667;[avgCR <-o avgF]:0.1667;
+shape --> eccentricity [eccentricity <-o shape]:0.1667;[eccentricity <-- shape]:0.3333;[eccentricity <-> shape]:0.1667;[no edge]:0.3333;
+stdCR o-o stdF [stdCR <-o stdF]:0.3333;[stdCR o-o stdF]:0.5000;[no edge]:0.1667;
+prob_infeas o-> eccentricity [eccentricity <-o prob_infeas]:0.8333;[no edge]:0.1667;
+pop_size o-> it [it <-o pop_size]:0.5000;[it o-o pop_size]:0.5000;
+best o-> error [best o-o error]:0.1667;[best o-> error]:0.3333;[best <-o error]:0.1667;[best <-> error]:0.1667;[no edge]:0.1667;
+genInfeasibleElement o-o prob_infeas [genInfeasibleElement o-o prob_infeas]:1.0000;

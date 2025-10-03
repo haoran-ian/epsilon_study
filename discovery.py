@@ -66,6 +66,8 @@ def build_atom_data(iid, pid, bchm, eps):
 
 
 def causal_discovery(iid, pid):
+    if os.path.exists(f"results/causal_bchm_fci/{iid}_{pid}.svg"):
+        return 0
     dfs = []
     for bchm in bchms:
         for eps in epsilons:
@@ -87,21 +89,19 @@ def causal_discovery(iid, pid):
     graph = tetrad.getTetradGraph()
     nodes = tetrad.getNodes()
     edges = tetrad.getEdges()
-
     dot_str = pc.tetradGraphToDot(graph)
     graphs = pydot.graph_from_dot_data(dot_str)
     svg_str = graphs[0].create_svg()
-    
-    # print(graph)
-    # print(dot_str)
-    print(svg_str)
-    # file_path = Path(f"results/causal_bchm/string/{iid}_{pid}.txt")
-    # if not file_path.exists():
-    #     file_path.touch()
-    f = open(f"results/causal_bchm/string/{iid}_{pid}.bin", "wb")
+    f = open(f"data/raw_graph_pycausal/nodes/{iid}_{pid}.txt", "w")
+    for n in nodes:
+        f.write(n+"\n")
+    f.close()
+    f = open(f"data/raw_graph_pycausal/edges/{iid}_{pid}.txt", "w")
+    for e in edges:
+        f.write(e+"\n")
+    f.close()
+    f = open(f"results/causal_bchm_fci/{iid}_{pid}.svg", "wb")
     f.write(svg_str)
-    # cairosvg.svg2png(bytestring=svg_str,
-    #                  write_to=f"results/causal_bchm/{iid}_{pid}_{bchms.index(bchm)}.png")
 
 
 if __name__ == "__main__":

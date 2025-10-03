@@ -55,7 +55,7 @@ def discovery(dataframe):
     lpcmci = LPCMCI(dataframe=dataframe,
                     cond_ind_test=parcorr,
                     verbosity=1)
-    tau_max = 3
+    tau_max = 5
     pc_alpha = 0.01
     # Run LPCMCI
     results = lpcmci.run_lpcmci(tau_max=tau_max,
@@ -77,7 +77,7 @@ for i in range(len(dfs)):
     #     continue
     graph, val_matrix = discovery(dfs[i])
     # discovery(dfs[i])
-    # print(graph)
+    print(graph)
     np.save(
         f"data/LPCMCI/graphs/{iid}_{pid}_{epsilon}_{bchm}_{i}.npy", graph)
     np.save(
