@@ -12,7 +12,7 @@ problem_ids = [1, 3, 4, 5, 16, 23]
 epsilons = [0.01, 0.02, 0.04, 0.06, 0.08, 0.1, 0.5, ""]
 bchms = ["beta", "expC_B", "expC_R", "expC_T", "mahalanobis", "midB",
          "midT", "mir", "sat", "tor", "unif", "vectB", "vectR", "vectT"]
-labels = ["it", "pop_size", "best", "error", "prob_infeas",
+labels = ["bchm", "eps", "it", "pop_size", "best", "error", "prob_infeas",
           "genInfeasibleElement", "genMutatedComponent", "ratio",
           "meanImprovements", "meanImprovementsMut", "varPop", "avgF", "stdF",
           "avgCR", "stdCR", "extension", "density", "shape", "eccentricity",
@@ -80,8 +80,8 @@ def plot_GTO(graph, iid, pid, epsilon, bchm):
 
 
 def plot_graph(iid, pid, epsilon, bchm):
-    val_matrix = np.load(f"data/val_matrix/{iid}_{pid}_{epsilon}_{bchm}_0.npy")
-    graph = np.load(f"data/graphs/{iid}_{pid}_{epsilon}_{bchm}_0.npy")
+    val_matrix = np.load(f"data/val_matrix/{iid}_{pid}.npy")
+    graph = np.load(f"data/graphs/{iid}_{pid}.npy")
     tp.plot_graph(
         val_matrix=val_matrix,
         graph=graph,
@@ -89,16 +89,18 @@ def plot_graph(iid, pid, epsilon, bchm):
         link_colorbar_label='cross-MCI',
         node_colorbar_label='auto-MCI',
         show_autodependency_lags=False,
-        figsize=(10, 10)
+        # node_size=0.1,
+        # arrow_linewidth=10,
+        # figsize=(10, 10)
     )
-    plt.savefig(f"results/graph_time/{iid}_{pid}_{epsilon}_{bchm}.png")
+    plt.savefig(f"results/{iid}_{pid}.png")
 
 
 iid = int(sys.argv[1])
 pid = int(sys.argv[2])
 epsilon = epsilons[int(sys.argv[3])]
 bchm = bchms[int(sys.argv[4])]
-f_path = f"data/graphs/{iid}_{pid}_{epsilon}_{bchm}_1.npy"
+f_path = f"data/graphs/{iid}_{pid}.npy"
 if not os.path.exists(f_path):
     exit
 print(f"Processing {iid} {pid} {epsilon} {bchm}")
