@@ -80,8 +80,8 @@ def plot_GTO(graph, iid, pid, epsilon, bchm):
 
 
 def plot_graph(iid, pid, epsilon, bchm):
-    val_matrix = np.load(f"data/val_matrix/{iid}_{pid}.npy")
-    graph = np.load(f"data/graphs/{iid}_{pid}.npy")
+    val_matrix = np.load(f"data/tcausal/PCMCI+/val_matrix/{iid}_{pid}.npy")
+    graph = np.load(f"data/tcausal/PCMCI+/graphs/{iid}_{pid}.npy")
     tp.plot_graph(
         val_matrix=val_matrix,
         graph=graph,
@@ -89,9 +89,9 @@ def plot_graph(iid, pid, epsilon, bchm):
         link_colorbar_label='cross-MCI',
         node_colorbar_label='auto-MCI',
         show_autodependency_lags=False,
-        # node_size=0.1,
-        # arrow_linewidth=10,
-        # figsize=(10, 10)
+        node_size=0.1,
+        arrow_linewidth=1,
+        figsize=(10, 10)
     )
     plt.savefig(f"results/{iid}_{pid}.png")
 
@@ -100,9 +100,9 @@ iid = int(sys.argv[1])
 pid = int(sys.argv[2])
 epsilon = epsilons[int(sys.argv[3])]
 bchm = bchms[int(sys.argv[4])]
-f_path = f"data/graphs/{iid}_{pid}.npy"
-if not os.path.exists(f_path):
-    exit
+# f_path = f"data/graphs/{iid}_{pid}.npy"
+# if not os.path.exists(f_path):
+#     exit
 print(f"Processing {iid} {pid} {epsilon} {bchm}")
 # for iid in instance_ids:
 #     for pid in problem_ids:
