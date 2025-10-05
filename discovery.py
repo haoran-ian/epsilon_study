@@ -100,8 +100,11 @@ def causal_discovery(iid, pid):
     for e in edges:
         f.write(e+"\n")
     f.close()
-    f = open(f"results/causal_bchm_fci/{iid}_{pid}.svg", "wb")
-    f.write(svg_str)
+    f = open(f"data/raw_graph_pycausal/graphs/{iid}_{pid}.txt", "w")
+    f.write(dot_str)
+    f.close()
+    # f = open(f"results/causal_bchm_fci/{iid}_{pid}.svg", "wb")
+    # f.write(svg_str)
 
 
 if __name__ == "__main__":

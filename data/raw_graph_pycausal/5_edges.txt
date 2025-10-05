@@ -1,0 +1,14 @@
+avgCR o-o genMutatedComponent [avgCR o-o genMutatedComponent]:1.0000;
+avgF o-o prob_infeas [avgF o-> prob_infeas]:0.1250;[avgF o-o prob_infeas]:0.7917;[no edge]:0.0833;
+best o-o error [best <-> error]:0.1053;[best --> error]:0.0526;[best o-> error]:0.0526;[best o-o error]:0.6315;[no edge]:0.1579;
+dist_to_opt o-> ratio [dist_to_opt o-> ratio]:0.7727;[dist_to_opt o-o ratio]:0.1818;[no edge]:0.0455;
+eccentricity o-o kl_unif [eccentricity --> kl_unif]:0.0476;[eccentricity o-> kl_unif]:0.0476;[eccentricity o-o kl_unif]:0.9047;
+eps o-> pop_size [eps o-> pop_size]:0.7500;[eps o-o pop_size]:0.2500;
+extension o-> meanImprovements [extension <-> meanImprovements]:0.2609;[extension --> meanImprovements]:0.0435;[extension o-> meanImprovements]:0.3913;[extension o-o meanImprovements]:0.0870;[no edge]:0.2174;
+it <-> pop_size [it <-> pop_size]:0.8889;[it o-> pop_size]:0.0556;[it o-o pop_size]:0.0556;
+it --> stdCR [it --> stdCR]:0.9130;[it o-> stdCR]:0.0435;[it o-o stdCR]:0.0435;
+it <-> stdF [it <-> stdF]:0.8750;[no edge]:0.1250;
+meanImprovements --> meanImprovementsMut [meanImprovements <-> meanImprovementsMut]:0.2273;[meanImprovements --> meanImprovementsMut]:0.5000;[meanImprovements o-> meanImprovementsMut]:0.0455;[meanImprovements o-o meanImprovementsMut]:0.0909;[no edge]:0.1364;
+meanImprovements <-> ratio [meanImprovements <-> ratio]:0.7333;[meanImprovements --> ratio]:0.1333;[no edge]:0.1333;
+ratio --> meanImprovementsMut [ratio <-> meanImprovementsMut]:0.1765;[ratio --> meanImprovementsMut]:0.4118;[ratio o-> meanImprovementsMut]:0.1176;[no edge]:0.2941;
+shape o-o varPop [shape <-> varPop]:0.2105;[shape --> varPop]:0.2631;[shape o-> varPop]:0.1579;[shape o-o varPop]:0.3158;[no edge]:0.0526;

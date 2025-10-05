@@ -1,0 +1,14 @@
+avgCR <-> genMutatedComponent [avgCR <-> genMutatedComponent]:0.8500;[avgCR o-> genMutatedComponent]:0.1500;
+avgF o-o prob_infeas [avgF --> prob_infeas]:0.1250;[avgF o-> prob_infeas]:0.1250;[avgF o-o prob_infeas]:0.7500;
+bchm o-> kl_unif [bchm o-> kl_unif]:0.8889;[no edge]:0.1111;
+best o-o error [best <-> error]:0.0500;[best --> error]:0.0500;[best o-> error]:0.1500;[best o-o error]:0.4500;[no edge]:0.3000;
+dist_to_opt o-> extension [dist_to_opt <-> extension]:0.2000;[dist_to_opt --> extension]:0.0500;[dist_to_opt o-> extension]:0.6500;[dist_to_opt o-o extension]:0.1000;
+dist_to_opt o-> ratio [dist_to_opt <-> ratio]:0.0556;[dist_to_opt --> ratio]:0.1667;[dist_to_opt o-> ratio]:0.6667;[no edge]:0.1111;
+eccentricity <-> kl_unif [eccentricity <-> kl_unif]:0.5454;[eccentricity o-> kl_unif]:0.2727;[eccentricity o-o kl_unif]:0.1818;
+genInfeasibleElement o-> genMutatedComponent [genInfeasibleElement <-> genMutatedComponent]:0.1250;[genInfeasibleElement o-> genMutatedComponent]:0.7083;[genInfeasibleElement o-o genMutatedComponent]:0.1667;
+it o-> pop_size [it o-> pop_size]:0.5000;[it o-o pop_size]:0.5000;
+meanImprovements <-> meanImprovementsMut [meanImprovements <-> meanImprovementsMut]:0.5294;[meanImprovements --> meanImprovementsMut]:0.0588;[meanImprovements o-> meanImprovementsMut]:0.1765;[meanImprovements o-o meanImprovementsMut]:0.1177;[no edge]:0.1177;
+meanImprovements <-> ratio [meanImprovements <-> ratio]:0.4167;[meanImprovements --> ratio]:0.1250;[meanImprovements o-> ratio]:0.3750;[meanImprovements o-o ratio]:0.0417;[no edge]:0.0417;
+shape o-> varPop [shape <-> varPop]:0.1579;[shape --> varPop]:0.0526;[shape o-> varPop]:0.4210;[shape o-o varPop]:0.3684;
+stdCR o-> avgCR [stdCR <-> avgCR]:0.1053;[stdCR --> avgCR]:0.1052;[stdCR o-> avgCR]:0.7368;[stdCR o-o avgCR]:0.0526;
+stdCR o-o stdF [stdCR <-> stdF]:0.0476;[stdCR --> stdF]:0.1905;[stdCR o-> stdF]:0.1429;[stdCR o-o stdF]:0.3809;[no edge]:0.2381;
